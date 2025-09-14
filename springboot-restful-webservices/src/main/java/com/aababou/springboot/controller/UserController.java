@@ -1,5 +1,6 @@
 package com.aababou.springboot.controller;
 
+import com.aababou.springboot.dto.UserDto;
 import com.aababou.springboot.entity.User;
 import com.aababou.springboot.service.UserService;
 import org.springframework.http.HttpStatus;
@@ -26,8 +27,8 @@ public class UserController {
     //Localhost:8080/users/create
     // build create User REST API
     @PostMapping
-    public ResponseEntity<User> createUser(@RequestBody User user){
-        User savedUser = userService.createUser(user);
+    public ResponseEntity<UserDto> createUser(@RequestBody UserDto user){
+        UserDto savedUser = userService.createUser(user);
         return new ResponseEntity<>(savedUser, HttpStatus.CREATED);
     }
 

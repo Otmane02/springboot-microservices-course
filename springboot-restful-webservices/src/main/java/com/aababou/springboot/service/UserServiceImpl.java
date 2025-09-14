@@ -4,6 +4,7 @@ package com.aababou.springboot.service;
 author otman
     */
 
+import com.aababou.springboot.dto.UserDto;
 import com.aababou.springboot.entity.User;
 import com.aababou.springboot.repository.UserRepository;
 import org.springframework.stereotype.Service;
@@ -21,8 +22,22 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    public User createUser(User user) {
-        return userRepository.save(user);
+    public UserDto createUser(UserDto user) {
+        User newUser = new User(
+                user.getId(),
+                user.getFirstName(),
+                user.getLastName(),
+                user.getEmail()
+        );
+        User savedUser =  userRepository.save(newUser);
+        UserDto userDto = new UserDto(
+                savedUser.getId(),
+                savedUser.getFirstName(),
+                savedUser.getLastName(),
+                savedUser.getEmail()
+        );
+
+        return userDto;
     }
 
     @Override

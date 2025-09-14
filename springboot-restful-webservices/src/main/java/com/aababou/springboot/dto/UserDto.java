@@ -1,33 +1,18 @@
-package com.aababou.springboot.entity;
+package com.aababou.springboot.dto;
 
+import jakarta.persistence.Column;
 
-import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+/*
+author otman
+    */
+public class UserDto {
 
-@Getter
-@Setter
-@Entity
-@Table(name = "users")
-public class User {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(nullable = false)
     private String firstName;
-    @Column(nullable = false)
     private String lastName;
-    @Column(nullable = false, unique = true)
     private String email;
 
-    public User() {
-       
-    }
-
-    public User(Long id, String firstName, String lastName, String email) {
+    public UserDto(Long id, String firstName, String lastName, String email) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -62,8 +47,9 @@ public class User {
         return email;
     }
 
+
+
     public void setEmail(String email) {
         this.email = email;
     }
 }
-
