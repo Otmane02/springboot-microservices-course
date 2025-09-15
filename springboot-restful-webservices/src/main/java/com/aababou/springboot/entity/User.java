@@ -24,7 +24,7 @@ public class User {
     private String email;
 
     public User() {
-       
+
     }
 
     public User(Long id, String firstName, String lastName, String email) {

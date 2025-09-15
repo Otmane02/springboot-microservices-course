@@ -1,11 +1,9 @@
 package com.aababou.springboot.controller;
 
 import com.aababou.springboot.dto.UserDto;
-import com.aababou.springboot.entity.User;
 import com.aababou.springboot.service.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -36,8 +34,8 @@ public class UserController {
     //Localhost:8080/users/1
     // build get User REST API
     @GetMapping("/{id}")
-    public ResponseEntity<User> getUser(@PathVariable Long id){
-        User user = userService.getUserById(id);
+    public ResponseEntity<UserDto> getUser(@PathVariable Long id){
+        UserDto user = userService.getUserById(id);
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
@@ -45,8 +43,8 @@ public class UserController {
     //Localhost:8080/users
     // build get AllUsers REST API
     @GetMapping
-    public ResponseEntity<List<User>> getUser(){
-        List<User> users = userService.getAllUsers();
+    public ResponseEntity<List<UserDto>> getUser(){
+        List<UserDto> users = userService.getAllUsers();
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
@@ -54,8 +52,8 @@ public class UserController {
     //Localhost:8080/users/1
     // build update User REST API
     @PutMapping("/{id}")
-    public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestBody User user){
-        User updateUser = userService.updateUser(id, user);
+    public ResponseEntity<UserDto> updateUser(@PathVariable Long id, @RequestBody UserDto user){
+        UserDto updateUser = userService.updateUser(id, user);
         return new ResponseEntity<>(updateUser, HttpStatus.OK);
     }
 

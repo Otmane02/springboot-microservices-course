@@ -6,11 +6,13 @@ author otman
 
 import com.aababou.springboot.dto.UserDto;
 import com.aababou.springboot.entity.User;
+import com.aababou.springboot.mapper.UserMapper;
 import com.aababou.springboot.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -23,43 +25,42 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDto createUser(UserDto user) {
-        User newUser = new User(
-                user.getId(),
-                user.getFirstName(),
-                user.getLastName(),
-                user.getEmail()
-        );
+        User newUser = UserMapper.toUserEntity(user);
         User savedUser =  userRepository.save(newUser);
-        UserDto userDto = new UserDto(
-                savedUser.getId(),
-                savedUser.getFirstName(),
-                savedUser.getLastName(),
-                savedUser.getEmail()
-        );
+        UserDto userDto = UserMapper.toUserDto(savedUser);
 
         return userDto;
     }
 
     @Override
-    public User getUserById(Long id) {
+    public UserDto getUserById(Long id) {
         Optional<User> user = userRepository.findById(id);
-        return user.get();
+        UserDto userDto = UserMapper.toUserDto(user.get());
+        return userDto;
     }
 
     @Override
-    public List<User> getAllUsers() {
-       return  userRepository.findAll();
+    public List<UserDto> getAllUsers() {
+       List<User> users =   userRepository.findAll();
+
+      return users.stream()
+               .map(UserMapper::toUserDto)
+               .collect(Collectors.toList());
+
 
     }
 
     @Override
-    public User updateUser(Long id, User user) {
+    public UserDto updateUser(Long id, UserDto user) {
         User userToUpdate = userRepository.findById(id).get();
+
         userToUpdate.setFirstName(user.getFirstName());
         userToUpdate.setLastName(user.getLastName());
         userToUpdate.setEmail(user.getEmail());
         User savedUser = userRepository.save(userToUpdate);
-        return savedUser;
+
+        UserDto userDto = UserMapper.toUserDto(savedUser);
+        return userDto;
 
     }
 

@@ -13,9 +13,9 @@ author otman
 
 public interface UserService {
      UserDto createUser(UserDto user) ;
-     User getUserById(Long id);
-     List<User> getAllUsers();
-     User updateUser(Long id, User user);
+     UserDto getUserById(Long id);
+     List<UserDto> getAllUsers();
+     UserDto updateUser(Long id, UserDto user);
      void deleteUser(Long id);
 
 }
